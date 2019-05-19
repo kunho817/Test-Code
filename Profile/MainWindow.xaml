@@ -13,7 +13,7 @@
         <Label Content="알아보고 싶은 대상 입력" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="InputName" HorizontalAlignment="Left" Height="23" Margin="10,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="594"/>
         <Button Content="Enter" HorizontalAlignment="Left" Margin="630,36,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <Canvas HorizontalAlignment="Left" Height="210" Margin="10,64,0,0" VerticalAlignment="Top" Width="345" IsEnabled="False">
+        <Canvas x:Name="Canvas" HorizontalAlignment="Left" Height="210" Margin="10,64,0,0" VerticalAlignment="Top" Width="345" IsEnabled="False">
             <TextBox x:Name="Name" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Canvas.Left="124" Canvas.Top="6"/>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" Canvas.Left="-1" Canvas.Top="7"><Run Text="Name"/><LineBreak/><Run/></TextBlock>
             <TextBox x:Name="Age" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" VerticalAlignment="Top" Width="200" Canvas.Left="124" Canvas.Top="33"/>
