@@ -18,17 +18,13 @@
 
     Private Sub Add(sender As Object, e As RoutedEventArgs)
         Dim person As System.IO.FileStream
-        Dim file As System.IO.StreamWriter
-        file = My.Computer.FileSystem.OpenTextFileWriter(("c:\Profile\Com\Com.txt"), False)
 
         thefile = String.Format("c:\Profile\{0}_{1}_{2}_{3}.txt", InputCombo.Text, Age.Text, Birth.Text, Country.Text)
         results = Dir$(thefile)
         If results = "" Then
             person = System.IO.File.Create(String.Format("c:\Profile\{0}_{1}_{2}_{3}.txt", InputCombo.Text, Age.Text, Birth.Text, Country.Text))
-            InputCombo.Items.Add(thefile)
+            InputCombo.Items.Add(String.Format("{0}_{1}_{2}_{3}", InputCombo.Text, Age.Text, Birth.Text, Country.Text))
             MsgBox("New Information is added")
-            file.WriteLine(String.Format("{0}_{1}_{2}_{3}", InputCombo.Text, Age.Text, Birth.Text, Country.Text))
-            file.Close()
             person.Close()
         End If
     End Sub
@@ -49,9 +45,8 @@
         End If
     End Sub
 
-    Private Sub Activates(sender As Object, e As EventArgs)
+    Private Sub Initia(sender As Object, e As EventArgs)
         Dim filess As String
-        Dim i As Integer
         Dim str As String
         Dim News As System.IO.StreamReader
         Dim fileo As System.IO.FileStream
@@ -59,21 +54,41 @@
         filess = "c:\Profile\Com\Com.txt"
 
         results = Dir$(filess)
+        News = My.Computer.FileSystem.OpenTextFileReader("c:\Profile\Com\Com.txt", System.Text.Encoding.UTF8)
         If results = "" Then
             fileo = System.IO.File.Create("c:\Profile\Com\Com.txt")
             fileo.Close()
         Else
-            News = My.Computer.FileSystem.OpenTextFileReader("c:\Profile\Com\Com.txt", System.Text.Encoding.UTF8)
-            str = My.Computer.FileSystem.ReadAllText("c:\Profile\Com\Com.txt", System.Text.Encoding.UTF8)
+CHECK:      str = News.ReadLine
+            If IsNothing(str) Then
+            Else
 
-
-            For i = 0 To i < str.Length
-                If (StrComp("\0", str.Chars(i))) Then
-                    InputCombo.Items.Add(News.ReadLine)
+                If str.Contains("$#-#$") Then
+                    InputCombo.Items.Add(str.Replace("$#-#$", ""))
+                    GoTo CHECK
                 End If
-            Next
+                News.Close()
+            End If
         End If
+        News.Close()
+    End Sub
 
+    Private Sub Over(sender As Object, e As EventArgs)
+        Dim file As System.IO.StreamWriter
+        Dim i As Integer
+        file = My.Computer.FileSystem.OpenTextFileWriter(("c:\Profile\Com\Com.txt"), False)
 
+        For i = 0 To InputCombo.Items.Count
+            file.WriteLine(String.Format("{0}$#-#$", InputCombo.Items.Item(i)))
+        Next
+        file.Close()
+    End Sub
+
+    Private Sub FCh(sender As Object, e As DependencyPropertyChangedEventArgs) Handles InputCombo.FocusableChanged
+        InputCombo.IsDropDownOpen = False
+    End Sub
+
+    Private Sub GF(sender As Object, e As RoutedEventArgs) Handles InputCombo.GotFocus
+        InputCombo.IsDropDownOpen = True
     End Sub
 End Class

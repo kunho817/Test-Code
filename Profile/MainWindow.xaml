@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Profile"
         mc:Ignorable="d"
-        Title="Profile" Height="350" Width="730" Activated="Activates">
+        Title="Profile" Height="350" Width="730" Initialized="Initia" Closed="Over">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"/>
     </Window.Resources>
@@ -37,7 +37,7 @@
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" Canvas.Left="-1" Canvas.Top="115"><Run Text="Country"/><LineBreak/><Run/></TextBlock>
             <TextBlock HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Height="22" Text="Location" Canvas.Left="-1" Canvas.Top="142"/>
         </Canvas>
-        <ComboBox x:Name="InputCombo" HorizontalAlignment="Left" Margin="10,36,0,0" VerticalAlignment="Top" Width="594" IsEditable="True"/>
+        <ComboBox x:Name="InputCombo" HorizontalAlignment="Left" Margin="9,36,0,0" VerticalAlignment="Top" Width="594" IsEditable="True"/>
 
     </Grid>
 </Window>
