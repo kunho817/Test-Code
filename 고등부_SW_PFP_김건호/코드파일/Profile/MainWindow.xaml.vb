@@ -6,35 +6,31 @@
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         thefile = String.Format("c:\Profile\{0}.txt", InputCombo.Text)
         results = Dir$(thefile)
-
         If results = "" Then
             MsgBox("이 이름을 가진 사람의 정보가 존재하지 않습니다.")
             Canvas.IsEnabled = True
             Nam.Text = InputCombo.Text
         Else
-            Dim Reader = My.Computer.FileSystem.OpenTextFileReader(String.Format("c:\Profile\{0}.txt", InputCombo.Text))
             fileR = My.Computer.FileSystem.ReadAllText(String.Format("c:\Profile\{0}.txt", InputCombo.Text), System.Text.Encoding.UTF8)
-            Nam1.Text = Reader.ReadLine()
-            Age1.Text = Reader.ReadLine()
-            Job1.Text = Reader.ReadLine()
-            Birth1.Text = Reader.ReadLine()
-            Country1.Text = Reader.ReadLine()
-            Location1.Text = Reader.ReadLine()
+            Text.Text = fileR
+        End If
+    End Sub
+
+    Private Sub Add(sender As Object, e As RoutedEventArgs)
+        Dim person As System.IO.FileStream
+
+        thefile = String.Format("c:\Profile\{0}_{1}_{2}_{3}.txt", InputCombo.Text, Age.Text, Birth.Text, Country.Text)
+        results = Dir$(thefile)
+        If results = "" Then
+            person = System.IO.File.Create(String.Format("c:\Profile\{0}_{1}_{2}_{3}.txt", InputCombo.Text, Age.Text, Birth.Text, Country.Text))
+            InputCombo.Items.Add(String.Format("{0}_{1}_{2}_{3}", InputCombo.Text, Age.Text, Birth.Text, Country.Text))
+            MsgBox("New Information is added")
+            person.Close()
         End If
     End Sub
 
     Private Sub Save(sender As Object, e As RoutedEventArgs)
         If (Canvas.IsEnabled) Then
-            Dim person As System.IO.FileStream
-
-            thefile = String.Format("c:\Profile\{0}_{1}_{2}_{3}.txt", InputCombo.Text, Age.Text, Birth.Text, Country.Text)
-            results = Dir$(thefile)
-            If results = "" Then
-                person = System.IO.File.Create(String.Format("c:\Profile\{0}_{1}_{2}_{3}.txt", InputCombo.Text, Age.Text, Birth.Text, Country.Text))
-                InputCombo.Items.Add(String.Format("{0}_{1}_{2}_{3}", InputCombo.Text, Age.Text, Birth.Text, Country.Text))
-                person.Close()
-            End If
-
             Dim file As System.IO.StreamWriter
             file = My.Computer.FileSystem.OpenTextFileWriter(String.Format("c:\Profile\{0}_{1}_{2}_{3}.txt", InputCombo.Text, Age.Text, Birth.Text, Country.Text), False)
             file.WriteLine(Nam.Text)
